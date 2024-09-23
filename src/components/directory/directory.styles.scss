@@ -1,0 +1,7 @@
+.directory-container {
+    width: 100%; // Sets the container width to 100% of its parent
+    display: flex; // Uses flexbox for layout
+    flex-wrap: wrap; // Allows items to wrap to the next line
+    justify-content: space-between; // Distributes space evenly between items
+  }
+  

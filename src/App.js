@@ -1,38 +1,22 @@
-import Directory from './components/directory/directory.copmpnent.jsx';
+import { Routes, Route } from 'react-router-dom';
 
-const categories = [
-  {
-    id: 1,
-    title: "Hats",
-    imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-  },
-  {
-    id: 2,
-    title: "Jackets",
-    imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
-  },
-  {
-    id: 3,
-    title: "Sneakers",
-    imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
-  },
-  {
-    id: 4,
-    title: "Womens",
-    imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
-  },
-  {
-    id: 5,
-    title: "Mens",
-    imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
-  },
+import Home from './components/routes/home/home.component.jsx';
+import Navigation from './components/routes/navigation/navigation.component.jsx';
 
-];
+const Shop = () => {
+  return <h1>Shop Page</h1>
+}
 
 const App = () => {
 
   return (
-    <Directory categories={categories} />
+    <Routes>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />} /> {/** index is used to set the default child route. instead of writing path='home' we can use index */}
+        <Route path="shop" element={<Shop />} />
+      </Route>
+    </Routes>
+
   );
 }
 

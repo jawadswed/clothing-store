@@ -2,8 +2,8 @@ import { Outlet, Link } from "react-router-dom";
 import { Fragment } from "react";
 import './navigation.styles.scss';
 
-import {ReactComponent as SwedLogo} from '../../../assets/clothing_store_logo_for_website_that_represent_my_last_name_swed_more.svg' 
-import {ReactComponent as CrownLogo} from '../../../assets/crown.svg'
+import { ReactComponent as SwedLogo } from '../../../assets/clothing_store_logo_for_website_that_represent_my_last_name_swed_more.svg'
+
 const Navigation = () => {
   return (
     <Fragment> {/** Fragment is used to wrap the child elements without adding extra nodes to the DOM. It is a generic wrapper component. */}
@@ -13,9 +13,13 @@ const Navigation = () => {
         </Link>
         <div className="nav-links-container">
           <Link className="nav-link" to="/shop">
-            <span>Shop</span>
+            Shop
+          </Link>
+          <Link className="nav-link" to="/sign-in">
+            Sign In
           </Link>
         </div>
+
       </div>
       <Outlet /> {/** Outlet is used to render the child routes */}
     </Fragment>

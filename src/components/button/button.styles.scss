@@ -1,0 +1,48 @@
+
+.button-container {
+    min-width: 165px; // Minimum width of the button.
+    width: auto; // Width of the button.
+    height: 50px; // Height of the button.
+    letter-spacing: 0.5px; // Letter spacing of the button.
+    line-height: 50px; // Line height of the button.
+    padding: 0 35px 0 35px; // Padding of the button.
+    font-size: 15px; // Font size of the button.
+    background-color: black; // Background color of the button.
+    color: white; // Color of the button.
+    text-transform: uppercase; // Text transform of the button.
+    font-family: 'Open Sans Condensed'; // Font family of the button.
+    font-weight: bolder; // Font weight of the button.
+    border: none; // Border of the button.
+    cursor: pointer; // Cursor of the button.
+    display: flex; // Display of the button.
+    justify-content: center; // Justify content of the button.
+  
+    &:hover {
+      background-color: white;
+      color: black; // Color of the button.
+      border: 1px solid black; // Border of the button.
+    }
+  
+    &.google-sign-in {
+      background-color: #4285f4; // Background color of the button.
+      color: white; // Color of the button.
+
+      &:hover {
+        background-color: #357ae8; // Background color of the button.
+        border: none; // Border of the button.
+      }
+    }
+  
+    &.inverted {
+      background-color: white;
+      color: black; // Color of the button.
+      border: 1px solid black; // Border of the button.
+  
+      &:hover {
+        background-color: black;
+        color: white; // Color of the button.
+        border: none; // Border of the button.
+      }
+    }
+  }
+  

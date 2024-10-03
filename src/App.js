@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Home from './components/routes/home/home.component.jsx';
-import Navigation from './components/routes/navigation/navigation.component.jsx';
-import SignIn from './components/routes/sign-in/sign-in.component.jsx';
+import Home from './routes/home/home.component.jsx';
+import Navigation from './routes/navigation/navigation.component.jsx';
+import Authentication from './routes/authentication/authentication.component.jsx';
 const Shop = () => {
   return <h1>Shop Page</h1>
 }
@@ -14,7 +14,7 @@ const App = () => {
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} /> {/** index is used to set the default child route. instead of writing path='home' we can use index */}
         <Route path="shop" element={<Shop />} />
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="auth" element={<Authentication />} />
       </Route>
     </Routes>
 

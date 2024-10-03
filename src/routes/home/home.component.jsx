@@ -1,4 +1,4 @@
-import Directory from '../../directory/directory.copmpnent.jsx';
+import Directory from '../../components/directory/directory.copmpnent.jsx';
 
 const categories = [
   {

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { onAuthStateChangedListener } from "../utils/firebase/firebase.utils";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../utils/firebase/firebase.utils";
 
 // create context. this is where the state lives.
 export const UserContext = createContext({
@@ -12,11 +12,14 @@ export const UserProvider = ({ children }) => {
 
     const value = { currentUser, setCurrentUser };
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChangedListener((user) => {
-            setCurrentUser(user);
+    useEffect(() => { // useEffect is used to call the function once when the component is mounted.
+        const unsubscribe = onAuthStateChangedListener((user) => { // Listen for changes in the authentication state.
+            if (user) { // If the user is authenticated.
+                createUserDocumentFromAuth(user); // Create a user document from the authentication object.
+            }
+            setCurrentUser(user); // Set the current user to the user authentication object.
         });
-        return unsubscribe;
+        return unsubscribe; // Return the unsubscribe function to stop listening for changes in the authentication state.
     }, []);
 
     // provide the context to the app. this is where the state is actually being used. 

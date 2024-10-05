@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import './sign-in-form.styles.scss';
-import { UserContext } from "../../context/user.context";
 
 // method to sign in with google redirect
 // useEffect(async () => { // useEffect is used to call the function once when the component is mounted. mounted means the component is rendered in the DOM.
@@ -23,15 +22,12 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields); // useState is used to create a state variable and a function to update it.
 
     const { email, password, } = formFields; // Destructuring the formFields object to get the values of the form fields.
-    const { setCurrentUser } = useContext(UserContext); // Destructuring the user context to get the setCurrentUser function.
     const resetFormFields = () => {
         setFormFields(defaultFormFields); // Resetting the formFields object to its initial value.
     }
 
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
-        setCurrentUser(user); // Set the current user in the user context.
+        await signInWithGooglePopup(); // Sign in with Google popup.
     }
 
     const handleChange = (event) => {
@@ -44,7 +40,6 @@ const SignInForm = () => {
 
         try {
             const { user } = await signInAuthUserWithEmailAndPassword(email, password); // Sign in with the provided email and password.
-            setCurrentUser(user); // Set the current user in the user context.
             resetFormFields(); // Reset the form fields.
         } catch (error) {
             switch (error.code) {

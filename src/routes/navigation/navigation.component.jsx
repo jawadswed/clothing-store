@@ -6,12 +6,11 @@ import { ReactComponent as SwedLogo } from '../../assets/clothing_store_logo_for
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext); // Destructuring the user context to get the currentUser.
+  const { currentUser } = useContext(UserContext); // Destructuring the user context to get the currentUser.
 
   // Sign out the user from the authentication and set the current user to null.
   const signOutHandler = async () => {
     await signOutUser(); // Sign out the user from the authentication.
-    setCurrentUser(null); // Set the current user to null.
   }
   return (
     <Fragment> {/** Fragment is used to wrap the child elements without adding extra nodes to the DOM. It is a generic wrapper component. */}

@@ -13,7 +13,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} /> {/** index is used to set the default child route. instead of writing path='home' we can use index */}
-        <Route path="shop" element={<Shop />} />
+        <Route path="shop/*" element={<Shop />} /> {/** The * is a wildcard that matches any path that comes after shop */}
         <Route path="auth" element={<Authentication />} />
         <Route path="checkout" element={<Checkout />} />
       </Route>

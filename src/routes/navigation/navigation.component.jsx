@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { Fragment, useContext, useState } from "react";
-import './navigation.styles.scss';
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from './navigation.styles';
 import { UserContext } from "../../context/user.context";
 import { ReactComponent as SwedLogo } from '../../assets/clothing_store_logo_for_website_that_represent_my_last_name_swed_more.svg'
 import { signOutUser } from "../../utils/firebase/firebase.utils";
@@ -22,27 +22,27 @@ const Navigation = () => {
 
   return (
     <Fragment> {/** Fragment is used to wrap the child elements without adding extra nodes to the DOM. It is a generic wrapper component. */}
-      <div className="navigation">
-        <Link className="logo-container" to="/"> {/** Link is used to navigate to the specified path. its like an anchor tag but it has more functionality to takes advantage of react router */}
+      <NavigationContainer>
+        <LogoContainer to="/"> {/** Link is used to navigate to the specified path. its like an anchor tag but it has more functionality to takes advantage of react router */}
           <SwedLogo className="logo" />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
+        </LogoContainer>
+        <NavLinks>
+          <NavLink to="/shop">
             Shop
-          </Link>
+          </NavLink>
           {currentUser ? (
-            <Link className="nav-link" to="/auth" onClick={signOutHandler}>
+            <NavLink to="/auth" onClick={signOutHandler}>
               Sign Out
-            </Link>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
+            <NavLink to="/auth">
               Sign In
-            </Link>
+            </NavLink>
           )}
           <CartIcon  />
-        </div>
+        </NavLinks>
         {isCartOpen && <CartDropdown />}
-      </div>
+      </NavigationContainer>
       <Outlet /> {/** Outlet is used to render the child routes */}
     </Fragment>
   )

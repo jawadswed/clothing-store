@@ -6,9 +6,10 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"; // doc is a function that creates a document reference (instance of a document), getDoc is a function that gets a document, and setDoc is a function that sets a document.
+import { getFirestore, doc, getDoc, setDoc, collection, writeBatch, query, onSnapshot, getDocs } from "firebase/firestore"; // doc is a function that creates a document reference (instance of a document), getDoc is a function that gets a document, and setDoc is a function that sets a document.
 
 
 // Your web app's Firebase configuration
@@ -34,6 +35,64 @@ export const auth = getAuth(); // Get the authentication instance from the Fireb
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider); // Create a function to sign in with Google using the popup.
 // export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider); // Create a function to sign in with Google using the redirect.
 export const db = getFirestore(); // Get the Firestore instance from the Firebase app.
+
+
+// HELPER FUNCTIONS.
+// This function adds a collection and documents to the Firestore database.
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    // Create a collection reference for the collection key.
+    const collectionRef = collection(db, collectionKey);
+    // Create a batch to write the documents to the Firestore database. batch instance is used to write multiple documents to the Firestore database in a single operation.
+    const batch = writeBatch(db);
+
+    objectsToAdd.forEach((object) => {
+        // Create a document reference for the object. docRef is an instance of a document reference. doc is a function that creates a document reference.
+        const docRef = doc(collectionRef, object.title.toLowerCase());
+        // Add the document to the batch.
+        batch.set(docRef, object);
+    });
+
+    // Commit the batch to the Firestore database.
+    await batch.commit();
+    console.log("done");
+}
+
+
+// This function gets the categories and documents from the Firestore database.
+export const getCategoriesAndDocuments = async () => {
+   
+    const collectionRef = collection(db, 'categories');
+    const q = query(collectionRef);
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+        const { title, items } = docSnapshot.data();
+        acc[title.toLowerCase()] = items;
+        return acc;
+    }, {});
+    return categoryMap;
+}
+
+
+// export const getCategoriesMapFromFirestore = async () => {
+//     const collectionRef = collection(db, 'categories');
+//     const q = query(collectionRef);
+//     const data = await getDocs(q);
+//     return data.docs.map((doc) => doc.data());
+// }
+
+
+// // This function gets the categories and documents from the Firestore database.
+// export const getCategoriesAndDocuments = async () => {
+//     // Create a collection reference for the categories.
+//     const collectionRef = collection(db, 'categories');
+//     // Create a query for the collection.
+//     const q = query(collectionRef);
+//     // Get the data from the Firestore database. The onSnapshot function is used to listen for changes in the Firestore database. The callback function is called with the snapshot of the data as the argument.
+//     const data = onSnapshot(q, (snapshot) => {
+//         console.log(snapshot);
+//     });
+//     return data;
+// }
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
 
